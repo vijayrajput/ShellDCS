@@ -1,0 +1,204 @@
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="com.shell.aviation.dcs.odata.model">
+			<EntityType Name="User">
+				<Key>
+					<PropertyRef Name="UserID"/>
+				</Key>
+				<Property Name="UserID" Type="Edm.String" Nullable="false"/>
+				<Property Name="FirstName" Type="Edm.String" Nullable="true"/>
+				<Property Name="LastName" Type="Edm.String" Nullable="true"/>
+				<Property Name="WorkingLocation" Type="Edm.String" Nullable="true"/>
+				<NavigationProperty Name="AvaliableVehicles" Relationship="com.shell.aviation.dcs.odata.model.UserVehiclesRelationship" FromRole="r_User" ToRole="r_Vehicles"/>
+				<NavigationProperty Name="ScheduleAircrafts" Relationship="com.shell.aviation.dcs.odata.model.UserAircraftsRelationship" FromRole="r_User" ToRole="r_Aircrafts"/>
+				<NavigationProperty Name="SubmitTickets" Relationship="com.shell.aviation.dcs.odata.model.UserTicketsRelationship" FromRole="r_User" ToRole="r_Tickets"/>
+				<NavigationProperty Name="SaveTickets" Relationship="com.shell.aviation.dcs.odata.model.UserTicketsRelationship" FromRole="r_User" ToRole="r_Tickets"/>
+			</EntityType>
+			<EntityType Name="Vehicle">
+				<Key>
+					<PropertyRef Name="VehicleNumber"/>
+				</Key>
+				<Property Name="VehicleNumber" Type="Edm.String" Nullable="false"/>
+				<Property Name="VehicleType" Type="Edm.String" Nullable="false"/>
+				<Property Name="VehicleDescription" Type="Edm.String" Nullable="true"/>
+				<Property Name="VehicleContainMaterialID" Type="Edm.String" Nullable="true"/>
+				<Property Name="VehicleContainMaterialName" Type="Edm.String" Nullable="true"/>
+				<Property Name="SiteName" Type="Edm.String" Nullable="true"/>
+				<Property Name="LocationName" Type="Edm.String" Nullable="true"/>
+				<Property Name="VehicleMeterReading" Type="Edm.String" Nullable="true"/>
+				<Property Name="VehicleStartDate" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="VehicleEndDate" Type="Edm.DateTime" Nullable="true"/>
+				<NavigationProperty Name="AvaliableContracts" Relationship="com.shell.aviation.dcs.odata.model.VehicleContractsRelationship" FromRole="r_Vehicle" ToRole="r_Contracts"/>
+				
+			</EntityType>
+			<EntityType Name="Contract">
+				<Key>
+					<PropertyRef  Name="ContractNo"/>
+				</Key>
+				<Property Name="ContractNo" Type="Edm.String" Nullable="false"/>
+				<Property Name="CustomerID" Type="Edm.String" Nullable="true"/>
+				<Property Name="SiteID" Type="Edm.String" Nullable="true"/>
+				<Property Name="MatreialID" Type="Edm.String" Nullable="true"/>
+				<Property Name="CompanyCode" Type="Edm.String" Nullable="true"/>
+				<Property Name="Division" Type="Edm.String" Nullable="true"/>
+				<Property Name="ValidFrom" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="ValidTo" Type="Edm.DateTime" Nullable="true"/>
+			</EntityType>
+			<EntityType Name="Aircraft">
+				<Key>
+					<PropertyRef Name="AircraftGUID"/>
+				</Key>
+				<Property Name="AircraftGUID" Type="Edm.String" Nullable="false"/>
+				<Property Name="AircraftRegistrationID" Type="Edm.String" Nullable="false"/>
+				<Property Name="ScheduleStatus" Type="Edm.Time" Nullable="true"/>
+				<Property Name="ScheduleDepatureTime" Type="Edm.Time" Nullable="true"/>
+				<Property Name="ScheduleDepatureDate" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="EstimatedArrivalDate" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="EstimatedArrivalTime" Type="Edm.Time" Nullable="true"/>
+				<Property Name="FlightNumber" Type="Edm.String" Nullable="true"/>
+				<Property Name="CustomerNumber" Type="Edm.String" Nullable="true"/>
+				<Property Name="FinalDestinationAirportID" Type="Edm.String" Nullable="true"/>
+				<Property Name="FlightTypeID" Type="Edm.String" Nullable="true"/>
+				<Property Name="FlightTypeName" Type="Edm.String" Nullable="true"/>
+				<Property Name="NextDestination" Type="Edm.String" Nullable="true"/>
+				<Property Name="FinalDestination" Type="Edm.String" Nullable="true"/>
+				<Property Name="DepatureAirport" Type="Edm.String" Nullable="true"/>
+				<Property Name="ArrivalAirport" Type="Edm.String" Nullable="true"/>
+				<NavigationProperty Name="AssociatedTicket" Relationship="com.shell.aviation.dcs.odata.model.AircraftTicketRelationship" FromRole="r_Aircraft" ToRole="r_Ticket"/>
+				<NavigationProperty Name="AircraftTypeDatails" Relationship="com.shell.aviation.dcs.odata.model.AircraftsAircraftTypeRelationship" FromRole="r_Aircrafts" ToRole="r_AircraftType"/>
+				<NavigationProperty Name="CustomerDetails" Relationship="com.shell.aviation.dcs.odata.model.AircraftsCustomerRelationship" FromRole="r_Aircrafts" ToRole="r_Customer"/>
+				<NavigationProperty Name="AirportDetails" Relationship="com.shell.aviation.dcs.odata.model.AircraftsAirportRelationship" FromRole="r_Aircrafts" ToRole="r_Airport"/>
+				<NavigationProperty Name="AirportStandDetails" Relationship="com.shell.aviation.dcs.odata.model.AircraftsAirportStandRelationship" FromRole="r_Aircrafts" ToRole="r_AirportStand"/>
+				<NavigationProperty Name="FlightTypeDetails" Relationship="com.shell.aviation.dcs.odata.model.AircraftsFlightTypeRelationship" FromRole="r_Aircrafts" ToRole="r_FlightType"/>
+				
+			</EntityType>
+			<EntityType Name="Ticket">
+				<Key>
+					<PropertyRef Name="TicketGUID"/>
+				</Key>
+				<Property Name="TicketGUID" Type="Edm.String" Nullable="false"/>
+				<Property Name="TicketType" Type="Edm.String" Nullable="true"/>
+				<Property Name="OperatorID" Type="Edm.String" Nullable="true"/>
+				<Property Name="OperatorName" Type="Edm.String" Nullable="true"/>
+				<Property Name="TicketCreationDate" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="TicketModifiedDate" Type="Edm.DateTime" Nullable="true"/>
+				<Property Name="TicketStatus" Type="Edm.String" Nullable="true"/>
+				<Property Name="VehicleID" Type="Edm.String" Nullable="true"/>
+				<Property Name="ProductName" Type="Edm.String" Nullable="true"/>
+				<Property Name="MeterStartReading" Type="Edm.Int16" Nullable="true"/>
+				<Property Name="ScheduleDepatureTime" Type="Edm.Time" Nullable="true"/>
+				<Property Name="FlightNumber" Type="Edm.String" Nullable="true"/>
+				<Property Name="CustomerNumber" Type="Edm.String" Nullable="true"/>
+				<Property Name="AircraftRegistrationID" Type="Edm.String" Nullable="false"/>
+				<Property Name="AircraftType" Type="Edm.String" Nullable="true"/>
+				<Property Name="FlightTypeName" Type="Edm.String" Nullable="true"/>
+				<Property Name="FinalDestination" Type="Edm.String" Nullable="true"/>
+				<Property Name="NextDestination" Type="Edm.String" Nullable="true"/>
+				<Property Name="MeterEndReading" Type="Edm.Int16" Nullable="true"/>
+				<Property Name="VATFlag" Type="Edm.Boolean" Nullable="true"/>
+				<Property Name="DutyFlag" Type="Edm.Boolean" Nullable="true"/>
+				<Property Name="FuleStartTime" Type="Edm.Time" Nullable="true"/>
+				<Property Name="FuleEndTime" Type="Edm.Time" Nullable="true"/>
+				<Property Name="StandName" Type="Edm.String" Nullable="true"/>
+				<Property Name="DeliveredVolume" Type="Edm.Double" Nullable="true"/>
+				<Property Name="InternalComment" Type="Edm.String" Nullable="true"/>
+				<Property Name="ExternalComment" Type="Edm.String" Nullable="true"/>
+			</EntityType>
+			<EntityType Name="Airport">
+				<Key>
+					<PropertyRef Name="AirportIATACode"/>
+				</Key>
+				<Property Name="AirportIATACode" Type="Edm.String" Nullable="false"/>
+				<Property Name="AirportName" Type="Edm.String" Nullable="false"/>
+				<Property Name="AirportLocation" Type="Edm.String" Nullable="false"/>
+				<Property Name="AirportCountry" Type="Edm.String" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="Customer">
+				<Key>
+					<PropertyRef Name="CustomerNumber"/>
+				</Key>
+				<Property Name="CustomerNumber" Type="Edm.String" Nullable="false"/>
+				<Property Name="CustomerName" Type="Edm.String" Nullable="true"/>
+				<NavigationProperty Name="HaveContracts" Relationship="com.shell.aviation.dcs.odata.model.CustomerContractsRelationship" FromRole="r_Customer" ToRole="r_Contracts"/>
+				
+			</EntityType>
+			<EntityType Name="AircraftType">
+				<Key>
+					<PropertyRef Name="TypeCode"/>
+				</Key>
+				<Property Name="TypeCode" Type="Edm.String" Nullable="false"/>
+				<Property Name="TypeID" Type="Edm.String" Nullable="true"/>
+				<Property Name="TypeName" Type="Edm.String" Nullable="true"/>
+				<Property Name="ManufactureName" Type="Edm.String" Nullable="true"/>
+				<Property Name="FuelCapacity" Type="Edm.Double" Nullable="true"/>
+				<Property Name="FuelMaterialNo" Type="Edm.String" Nullable="true"/>
+			</EntityType>
+			<EntityType Name="FlightType">
+				<Key>
+					<PropertyRef Name="FlightTypeCode"/>
+				</Key>
+				<Property Name="FlightTypeCode" Type="Edm.String" Nullable="false"/>
+				<Property Name="FlightTypeName" Type="Edm.String" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="AirportStand">
+				<Key>
+					<PropertyRef Name="AirportStandID"/>
+				</Key>
+				<Property Name="AirportStandID" Type="Edm.String" Nullable="false"/>
+				<Property Name="AirportStandDescription" Type="Edm.String" Nullable="false"/>
+				<Property Name="AirportID" Type="Edm.String" Nullable="false"/>
+			</EntityType>
+			<Association Name="UserVehiclesRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.User" Multiplicity="1" Role="r_User"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Vehicle" Multiplicity="*" Role="r_Vehicles"/>
+			</Association>
+			<Association Name="UserAircraftsRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.User" Multiplicity="1" Role="r_User"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+			</Association>
+			<Association Name="UserTicketsRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.User" Multiplicity="1" Role="r_User"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Ticket" Multiplicity="*" Role="r_Tickets"/>
+			</Association>
+			<Association Name="AircraftTicketRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="1" Role="r_Aircraft"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Ticket" Multiplicity="1" Role="r_Ticket"/>
+			</Association>
+			<Association Name="AircraftsAircraftTypeRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+					<End Type="com.shell.aviation.dcs.odata.model.AircraftType" Multiplicity="1" Role="r_AircraftType"/>
+			</Association>
+			<Association Name="AircraftsCustomerRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Customer" Multiplicity="1" Role="r_Customer"/>
+			</Association>
+			<Association Name="AircraftsFlightTypeRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+					<End Type="com.shell.aviation.dcs.odata.model.FlightType" Multiplicity="1" Role="r_FlightType"/>
+			</Association>
+			<Association Name="AircraftsAirportRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Airport" Multiplicity="1" Role="r_Airport"/>
+			</Association>
+			<Association Name="AircraftsAirportStandRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.AirportStand" Multiplicity="1" Role="r_AirportStand"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Aircraft" Multiplicity="*" Role="r_Aircrafts"/>
+			</Association>
+			<Association Name="CustomerContractsRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Customer" Multiplicity="1" Role="r_Customer"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Contract" Multiplicity="*" Role="r_Contracts"/>
+			</Association>
+			<Association Name="VehicleContractsRelationship">
+					<End Type="com.shell.aviation.dcs.odata.model.Vehicle" Multiplicity="1" Role="r_Vehicle"/>
+					<End Type="com.shell.aviation.dcs.odata.model.Contract" Multiplicity="*" Role="r_Contracts"/>
+			</Association>
+			<EntityContainer Name="DefaultContainer" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="UserSet" EntityType="com.shell.aviation.dcs.odata.model.User"/>
+				<EntitySet Name="VehicleSet" EntityType="com.shell.aviation.dcs.odata.model.Vehicle"/>
+				<EntitySet Name="AircraftSet" EntityType="com.shell.aviation.dcs.odata.model.Aircraft"/>
+				<EntitySet Name="TicketSet" EntityType="com.shell.aviation.dcs.odata.model.Ticket"/>
+				<EntitySet Name="AirportSet" EntityType="com.shell.aviation.dcs.odata.model.Airport"/>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
